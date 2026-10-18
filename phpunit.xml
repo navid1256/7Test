@@ -11,6 +11,10 @@
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
         </testsuite>
+        <testsuite name="API">
+            <directory>tests/API/V1</directory>
+            <directory>tests/API/V2</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>
