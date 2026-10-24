@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\API\V2;
 
 use App\Http\Controllers\Controller;
-use App\repositories\Eloquent\EloquentUserRepository;
+use App\repositories\Contracts\UserRepositoryInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
-    public function __construct(private readonly EloquentUserRepository $repository)
-    {
-    }
+    public function __construct(private readonly UserRepositoryInterface $repository) {}
 
-    public function store(Request $request): \Illuminate\Http\JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'full_name' => ['required', 'string', 'max:255'],

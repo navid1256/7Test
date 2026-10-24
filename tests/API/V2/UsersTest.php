@@ -3,6 +3,9 @@
 namespace Tests\API\V2;
 
 use App\Models\User;
+use App\repositories\Contracts\UserRepositoryInterface;
+use App\repositories\Eloquent\EloquentBaseRepository;
+use App\repositories\Eloquent\EloquentUserRepository;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
@@ -10,6 +13,14 @@ use Tests\TestCase;
 class UsersTest extends TestCase
 {
     use LazilyRefreshDatabase;
+
+    public function test_user_repository_contract_resolves_to_eloquent_implementation(): void
+    {
+        $repository = $this->app->make(UserRepositoryInterface::class);
+
+        $this->assertInstanceOf(EloquentUserRepository::class, $repository);
+        $this->assertInstanceOf(EloquentBaseRepository::class, $repository);
+    }
 
     public function test_should_create_a_new_user(): void
     {
